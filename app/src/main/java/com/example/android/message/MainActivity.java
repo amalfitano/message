@@ -83,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
                 EditText input = (EditText) findViewById(R.id.input);
                 FirebaseDatabase.getInstance().getReference().push().setValue(new ChatMessage(input.getText().toString(),
                         FirebaseAuth.getInstance().getCurrentUser().getEmail()));
+                input.setText(null);
+                final ListView listview = (ListView) findViewById(R.id.list_of_message);
+                listview.post(new Runnable(){
+                    @Override
+                    public void run(){
+                        listview.setSelection(adapter.getCount()-1);
+                    }
+                });
+                //listview.setSelection(adapter.getCount() - 1);
             }
         });
 
@@ -126,4 +135,6 @@ public class MainActivity extends AppCompatActivity {
         };
         listOfMessage.setAdapter(adapter);
     }
+
+
 }
